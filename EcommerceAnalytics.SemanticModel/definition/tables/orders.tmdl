@@ -1,0 +1,96 @@
+table orders
+	lineageTag: 8f7c1f9f-037b-59ce-ba3f-34c391b3a861
+
+	column order_id
+		dataType: string
+		lineageTag: 77685fbd-8665-55cc-aa97-f85a81a33fdb
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: c50b7b0f-f386-5099-8a4f-3dcbe7820ad6
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 58a0483e-69fb-59cb-8c56-74b2865c0924
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: df547e03-e9f7-5524-9e0d-218eda5309ea
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 511a45bd-5ed0-5c5e-b0d1-746ebf0472ba
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: a8f6a0bb-1f51-5021-8a5b-ce91db40ff2e
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column device
+		dataType: string
+		lineageTag: 3fb0cfc6-b864-5795-bb29-491b4c1cd846
+		summarizeBy: none
+		sourceColumn: device
+
+		annotation SummarizationSetBy = Automatic
+
+	column promised_days
+		dataType: int64
+		lineageTag: c585c8c3-2ca1-5384-b2d7-5697c42af1cf
+		summarizeBy: none
+		sourceColumn: promised_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_days
+		dataType: int64
+		lineageTag: e577a7a1-d8f3-5f13-ad61-8238e58188cc
+		summarizeBy: none
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_fee
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: bdd0cca8-d3e7-55a0-956f-dbd1fe75d523
+		summarizeBy: sum
+		sourceColumn: shipping_fee
+
+		annotation SummarizationSetBy = Automatic
+
+	partition orders = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "orders.csv"), [Delimiter = ",", Columns = 10, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"order_id", type text}, {"customer_id", type text}, {"order_date", type date}, {"order_status", type text}, {"payment_method", type text}, {"channel", type text}, {"device", type text}, {"promised_days", Int64.Type}, {"delivery_days", Int64.Type}, {"shipping_fee", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,39 @@
+table reviews
+	lineageTag: 48bcdb75-cffc-5ef2-89e1-7942bf8ba910
+
+	column order_id
+		dataType: string
+		lineageTag: 9f850daf-977d-5ddd-b145-f1c64fc5ff20
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: int64
+		lineageTag: 77d34dec-4237-52d8-a8c4-7801903fbd34
+		summarizeBy: none
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 7bd98e77-5f1a-57ab-967c-563a59e940f6
+		summarizeBy: none
+		sourceColumn: review_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition reviews = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "reviews.csv"), [Delimiter = ",", Columns = 3, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"order_id", type text}, {"review_score", Int64.Type}, {"review_date", type date}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

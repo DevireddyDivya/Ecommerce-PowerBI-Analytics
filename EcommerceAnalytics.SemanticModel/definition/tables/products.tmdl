@@ -1,0 +1,72 @@
+table products
+	lineageTag: 14e145e4-5ff4-52eb-b3ff-e2ead03dd9c2
+
+	column product_id
+		dataType: string
+		lineageTag: ae045ff7-8a2a-52b3-beed-ad7239ed0d9e
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: d313acca-991f-57c8-bcf0-9a26105fee7a
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: dc4c92e1-151e-5a5e-8421-06addc06827b
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcategory
+		dataType: string
+		lineageTag: 150f1751-0e6d-5f87-a6fc-b626252e024f
+		summarizeBy: none
+		sourceColumn: subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		lineageTag: 108b9eef-3aa2-54c8-9e39-aa409d00cec1
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: ef201285-1c8e-58f6-acc2-8c86f1adc9e8
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: bb801d86-8519-52ed-a703-129200b01426
+		summarizeBy: sum
+		sourceColumn: unit_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	partition products = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "products.csv"), [Delimiter = ",", Columns = 7, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"product_id", type text}, {"product_name", type text}, {"category", type text}, {"subcategory", type text}, {"brand", type text}, {"unit_price", type number}, {"unit_cost", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

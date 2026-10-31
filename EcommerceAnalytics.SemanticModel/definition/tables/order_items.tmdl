@@ -1,0 +1,82 @@
+table order_items
+	lineageTag: 5bfa23fb-47eb-5a71-8849-c2c509f943ff
+
+	column order_id
+		dataType: string
+		lineageTag: dd3e4cb0-8e16-55f8-b723-c79ceb9946d8
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_number
+		dataType: int64
+		isHidden
+		lineageTag: d926cea8-92c9-5a66-8d0d-6e50a6a09268
+		summarizeBy: none
+		sourceColumn: line_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: 59b018ee-87c3-558e-a6d1-ec95253b82b0
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		lineageTag: f0efc3e6-97fc-5d0e-9c0d-0dba1e0373ee
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: 627cd164-4a3c-502c-84be-59d66cd0ec82
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_pct
+		dataType: int64
+		lineageTag: c0593a45-9745-5690-a6c4-7968e4396a4c
+		summarizeBy: none
+		sourceColumn: discount_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_revenue
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: 45d09603-1188-5ddf-bca9-7a7153e7e4b5
+		summarizeBy: sum
+		sourceColumn: line_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_cost
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: 163282ef-9974-5008-9ed4-5dcbd0c09cf8
+		summarizeBy: sum
+		sourceColumn: line_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	partition order_items = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "order_items.csv"), [Delimiter = ",", Columns = 8, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"order_id", type text}, {"line_number", Int64.Type}, {"product_id", type text}, {"quantity", Int64.Type}, {"unit_price", type number}, {"discount_pct", Int64.Type}, {"line_revenue", type number}, {"line_cost", type number}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

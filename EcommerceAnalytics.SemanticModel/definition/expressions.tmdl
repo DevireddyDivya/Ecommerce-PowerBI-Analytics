@@ -1,0 +1,4 @@
+expression DataFolder = "D:\ecommerce-powerbi\data\" meta [IsParameterQuery = true, Type = "Text", IsParameterQueryRequired = true]
+	lineageTag: dd8cb13d-ddf4-5abd-ad6c-aa4e3c8ae087
+
+	annotation PBI_ResultType = Text

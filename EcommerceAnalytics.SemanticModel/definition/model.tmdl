@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DataFolder", "customers", "products", "sessions", "orders", "order_items", "reviews"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table customers
+ref table products
+ref table sessions
+ref table orders
+ref table order_items
+ref table reviews
+ref table Date
+ref table 'Funnel Stage'
+ref table Measures

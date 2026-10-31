@@ -1,0 +1,27 @@
+relationship 4704cfaf-2add-5719-9e8a-045ea5b37d7e
+	fromColumn: orders.customer_id
+	toColumn: customers.customer_id
+
+relationship c083b131-cebf-5965-be50-7d531a4a402c
+	fromColumn: order_items.order_id
+	toColumn: orders.order_id
+
+relationship 48fc511a-08ed-5669-9893-69a33d418943
+	fromColumn: order_items.product_id
+	toColumn: products.product_id
+
+relationship 88cfc207-e2f9-52ee-9b3f-8dd1cb37ff20
+	fromColumn: reviews.order_id
+	toColumn: orders.order_id
+
+relationship a2920ffb-4956-51ec-a295-5b17f4851d05
+	fromColumn: orders.order_date
+	toColumn: Date.Date
+
+relationship b11f30fe-d466-545d-b723-dcb94c050b45
+	fromColumn: sessions.session_date
+	toColumn: Date.Date
+
+relationship 13bc0989-7ff6-5a77-b27e-4b41b1c5252a
+	fromColumn: sessions.customer_id
+	toColumn: customers.customer_id

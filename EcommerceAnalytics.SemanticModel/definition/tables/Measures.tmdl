@@ -1,0 +1,196 @@
+table Measures
+	lineageTag: fd9d4dfc-52dd-5738-9632-dd93d85c04aa
+
+	measure 'Gross Revenue' = SUM(order_items[line_revenue])
+		formatString: ₹#,0
+		displayFolder: Sales
+		lineageTag: 71b26eaf-8882-53ac-bb15-cb7e343ac6b9
+
+	measure 'Net Revenue' = CALCULATE([Gross Revenue], orders[order_status] IN {"Delivered", "Shipped"})
+		formatString: ₹#,0
+		displayFolder: Sales
+		lineageTag: c78cd4d3-0476-56cf-9360-b7862ce9d6fe
+
+	measure Cost = CALCULATE(SUM(order_items[line_cost]), orders[order_status] IN {"Delivered", "Shipped"})
+		formatString: ₹#,0
+		displayFolder: Sales
+		lineageTag: 78612e5b-6742-562a-90da-1332c7b74e83
+
+	measure 'Gross Profit' = [Net Revenue] - [Cost]
+		formatString: ₹#,0
+		displayFolder: Sales
+		lineageTag: cc09af28-535b-533c-b053-5d8c87b8b1d9
+
+	measure 'Profit Margin %' = DIVIDE([Gross Profit], [Net Revenue])
+		formatString: 0.0%
+		displayFolder: Sales
+		lineageTag: 684c787e-fec0-57be-8071-578399e96186
+
+	measure Orders = DISTINCTCOUNT(order_items[order_id])
+		formatString: #,0
+		displayFolder: Sales
+		lineageTag: 92d307f3-e210-5794-af3c-48cee1d0e2f2
+
+	measure 'Completed Orders' = CALCULATE([Orders], orders[order_status] IN {"Delivered", "Shipped"})
+		formatString: #,0
+		displayFolder: Sales
+		lineageTag: 6541c690-dc94-56d3-9ca3-b2d53c861a1c
+
+	measure 'Average Order Value' = DIVIDE([Net Revenue], [Completed Orders])
+		formatString: ₹#,0
+		displayFolder: Sales
+		lineageTag: 53fd0c8f-1464-51a4-ad88-6ea27554dc81
+
+	measure 'Units Sold' = CALCULATE(SUM(order_items[quantity]), orders[order_status] IN {"Delivered", "Shipped"})
+		formatString: #,0
+		displayFolder: Sales
+		lineageTag: 1c5d4c4e-189d-5ecd-851e-0ecb873ce061
+
+	measure 'Avg Discount %' = DIVIDE(AVERAGE(order_items[discount_pct]), 100)
+		formatString: 0.0%
+		displayFolder: Sales
+		lineageTag: 964ec34e-697f-5462-91d6-74308562c1e4
+
+	measure 'Net Revenue PY' = CALCULATE([Net Revenue], SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: ₹#,0
+		displayFolder: Time Intelligence
+		lineageTag: f59a9279-1b36-542b-a2e6-050338ef0290
+
+	measure 'Revenue YoY %' = DIVIDE([Net Revenue] - [Net Revenue PY], [Net Revenue PY])
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Time Intelligence
+		lineageTag: e2914e2b-d809-5fbd-a3ca-b44967506503
+
+	measure 'Net Revenue YTD' = TOTALYTD([Net Revenue], 'Date'[Date])
+		formatString: ₹#,0
+		displayFolder: Time Intelligence
+		lineageTag: 67aa4ab2-f29b-5f40-8957-87a16afbe986
+
+	measure 'Orders PY' = CALCULATE([Completed Orders], SAMEPERIODLASTYEAR('Date'[Date]))
+		formatString: #,0
+		displayFolder: Time Intelligence
+		lineageTag: 4640f650-1cf2-5930-8245-da0d7efd40ce
+
+	measure 'Orders YoY %' = DIVIDE([Completed Orders] - [Orders PY], [Orders PY])
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Time Intelligence
+		lineageTag: 0d98cca5-ecfd-585b-b1c9-a6a86001a23d
+
+	measure Customers = CALCULATE(DISTINCTCOUNT(orders[customer_id]), CROSSFILTER(order_items[order_id], orders[order_id], Both))
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: ef87d967-10dc-5c9c-b214-6f0fa5e9316f
+
+	measure 'Repeat Customers' = COUNTROWS(FILTER(VALUES(orders[customer_id]), CALCULATE(DISTINCTCOUNT(orders[order_id]), orders[order_status] <> "Cancelled") > 1))
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: 519ef233-c8e2-5b9b-92c9-30d63b1e48b0
+
+	measure 'Repeat Customer Rate' = DIVIDE([Repeat Customers], DISTINCTCOUNT(orders[customer_id]))
+		formatString: 0.0%
+		displayFolder: Customers
+		lineageTag: 0ac59eb8-5d92-5701-8f9b-38e19c523a82
+
+	measure 'New Customers' = VAR PeriodStart = MIN('Date'[Date]) RETURN COUNTROWS(FILTER(VALUES(orders[customer_id]), CALCULATE(MIN(orders[order_date]), ALL('Date')) >= PeriodStart))
+		formatString: #,0
+		displayFolder: Customers
+		lineageTag: 50723194-506d-5a1e-ac90-bb4640aa751c
+
+	measure 'Revenue per Customer' = DIVIDE([Net Revenue], [Customers])
+		formatString: ₹#,0
+		displayFolder: Customers
+		lineageTag: 1334de34-529e-58a3-987d-d46a04b08c69
+
+	measure Sessions = COUNTROWS(sessions)
+		formatString: #,0
+		displayFolder: Funnel
+		lineageTag: 8775fc05-dd85-5eac-b7fa-05778dba5b87
+
+	measure 'Product Views' = SUM(sessions[product_view])
+		formatString: #,0
+		displayFolder: Funnel
+		lineageTag: 2846e9a6-df13-5980-8b10-369c03b96b2b
+
+	measure 'Add to Cart' = SUM(sessions[add_to_cart])
+		formatString: #,0
+		displayFolder: Funnel
+		lineageTag: aae17dd0-e473-57a4-a71e-a9c07dca186d
+
+	measure Checkouts = SUM(sessions[checkout])
+		formatString: #,0
+		displayFolder: Funnel
+		lineageTag: fd08c409-76a7-5d99-902f-aac794089727
+
+	measure Purchases = SUM(sessions[purchase])
+		formatString: #,0
+		displayFolder: Funnel
+		lineageTag: 986313c1-fe16-57fd-9ad6-954ef436de59
+
+	measure 'Conversion Rate' = DIVIDE([Purchases], [Sessions])
+		formatString: 0.00%
+		displayFolder: Funnel
+		lineageTag: 21770a0a-50f8-57e7-8726-622e08775c0d
+
+	measure 'Add to Cart Rate' = DIVIDE([Add to Cart], [Sessions])
+		formatString: 0.0%
+		displayFolder: Funnel
+		lineageTag: 8b5573ce-a09d-5682-bd40-043fb42be976
+
+	measure 'Cart Abandonment %' = 1 - DIVIDE([Purchases], [Add to Cart])
+		formatString: 0.0%
+		displayFolder: Funnel
+		lineageTag: c7a314a7-df1c-5f47-a685-ac619ea917c3
+
+	measure 'Funnel Count' = SWITCH(SELECTEDVALUE('Funnel Stage'[Stage]), "Sessions", [Sessions], "Product View", [Product Views], "Add to Cart", [Add to Cart], "Checkout", [Checkouts], "Purchase", [Purchases])
+		formatString: #,0
+		displayFolder: Funnel
+		lineageTag: e5d9327f-cf85-5b24-a9e0-782bfe9c828b
+
+	measure 'Funnel % of Sessions' = DIVIDE([Funnel Count], [Sessions])
+		formatString: 0.0%
+		displayFolder: Funnel
+		lineageTag: a5dc8060-0dfa-5cca-8afb-4afc310ae579
+
+	measure 'Cancellation Rate' = DIVIDE(CALCULATE([Orders], orders[order_status] = "Cancelled"), [Orders])
+		formatString: 0.0%
+		displayFolder: Operations
+		lineageTag: 4d61fa4d-5eb0-5493-8eaf-f02991836c69
+
+	measure 'Return Rate' = DIVIDE(CALCULATE([Orders], orders[order_status] = "Returned"), [Orders])
+		formatString: 0.0%
+		displayFolder: Operations
+		lineageTag: 6554bf05-ebb5-5ad6-aee7-55f06c450731
+
+	measure 'Avg Delivery Days' = AVERAGE(orders[delivery_days])
+		formatString: 0.0
+		displayFolder: Operations
+		lineageTag: 9a5edf3c-072c-5166-bb26-00dd336e6d2f
+
+	measure 'On-Time Delivery %' = DIVIDE(COUNTROWS(FILTER(orders, NOT ISBLANK(orders[delivery_days]) && orders[delivery_days] <= orders[promised_days])), COUNTROWS(FILTER(orders, NOT ISBLANK(orders[delivery_days]))))
+		formatString: 0.0%
+		displayFolder: Operations
+		lineageTag: 42d37201-920e-5fc2-92e8-a0fc02ab5f6b
+
+	measure 'Avg Review Score' = AVERAGE(reviews[review_score])
+		formatString: 0.00
+		displayFolder: Operations
+		lineageTag: d166e337-b345-5d51-8162-7482c6446308
+
+	measure 'Positive Review %' = DIVIDE(COUNTROWS(FILTER(reviews, reviews[review_score] >= 4)), COUNTROWS(reviews))
+		formatString: 0.0%
+		displayFolder: Operations
+		lineageTag: 176c129a-f117-599a-9600-7b4477035529
+
+	column Placeholder
+		dataType: int64
+		isHidden
+		lineageTag: 1256ba75-7d67-5dd0-9bb9-6a62faf76248
+		summarizeBy: sum
+		sourceColumn: [Placeholder]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measures = calculated
+		mode: import
+		source = ROW("Placeholder", 0)

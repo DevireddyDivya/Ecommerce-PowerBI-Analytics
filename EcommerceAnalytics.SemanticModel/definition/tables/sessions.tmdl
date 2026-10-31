@@ -1,0 +1,96 @@
+table sessions
+	lineageTag: 029c5090-13cf-5b7a-b182-b666f8f4ed3b
+
+	column session_id
+		dataType: string
+		lineageTag: 4be6bffe-237f-5ee7-8538-7d388702137f
+		summarizeBy: none
+		sourceColumn: session_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: b351114e-f62e-5792-8dde-8ab8a33cda69
+		summarizeBy: none
+		sourceColumn: session_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 8e6da086-ab94-51df-9aa4-921b361244de
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 1614a371-7f71-59c9-86b9-2a31e368f478
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column device
+		dataType: string
+		lineageTag: a3aeda45-5122-525e-80c8-b045891c3a1f
+		summarizeBy: none
+		sourceColumn: device
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_view
+		dataType: int64
+		lineageTag: 54fff0ed-fd5a-548d-85a9-21a18dc6d7f6
+		summarizeBy: sum
+		sourceColumn: product_view
+
+		annotation SummarizationSetBy = Automatic
+
+	column add_to_cart
+		dataType: int64
+		lineageTag: 63602483-7756-5e33-8097-02cf9eafc785
+		summarizeBy: sum
+		sourceColumn: add_to_cart
+
+		annotation SummarizationSetBy = Automatic
+
+	column checkout
+		dataType: int64
+		lineageTag: e5197e3d-b373-5ba5-8d97-9a3e48fc0a3d
+		summarizeBy: sum
+		sourceColumn: checkout
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase
+		dataType: int64
+		lineageTag: 639de58b-1396-5938-b712-1017d8cb9d52
+		summarizeBy: sum
+		sourceColumn: purchase
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		isHidden
+		lineageTag: 2083785a-647e-5934-a596-61ccff8631a6
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sessions = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "sessions.csv"), [Delimiter = ",", Columns = 10, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"session_id", type text}, {"session_date", type date}, {"customer_id", type text}, {"channel", type text}, {"device", type text}, {"product_view", Int64.Type}, {"add_to_cart", Int64.Type}, {"checkout", Int64.Type}, {"purchase", Int64.Type}, {"order_id", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

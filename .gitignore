@@ -1,0 +1,4 @@
+# Power BI Desktop local files (cache and per-user settings), not part of the project
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+__pycache__/

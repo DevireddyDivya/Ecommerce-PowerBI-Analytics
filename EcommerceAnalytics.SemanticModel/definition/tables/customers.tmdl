@@ -1,0 +1,124 @@
+table customers
+	lineageTag: 9b975d85-7d0b-55c6-97ec-22be9d86422e
+
+	column customer_id
+		dataType: string
+		lineageTag: eea303f0-0371-597b-a385-e4abad11df3d
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 478289cc-b52d-58fe-b95a-3f19f2c56a18
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_group
+		dataType: string
+		lineageTag: 616adfc8-91e2-5fe8-8003-4685c597d5ad
+		summarizeBy: none
+		sourceColumn: age_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 0cbd2260-e8f2-56f1-8008-0fa29bd7490c
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		dataCategory: StateOrProvince
+		lineageTag: 8bafff69-4e3d-5961-9c50-5d697b4a27ba
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: d843b8c5-1a8c-579b-8114-6bd084a47ee3
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column signup_date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 2364ea00-c7ac-546b-b74b-0587a5f75b4b
+		summarizeBy: none
+		sourceColumn: signup_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column acquisition_channel
+		dataType: string
+		lineageTag: 21e6e7a3-59dd-5fb7-a8c5-e63fe84808bc
+		summarizeBy: none
+		sourceColumn: acquisition_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Count' = COUNTROWS(FILTER(orders, orders[customer_id] = customers[customer_id] && orders[order_status] <> "Cancelled"))
+		dataType: int64
+		lineageTag: 38f58eb6-0adf-54b0-904c-dbfbd99b763b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lifetime Revenue' = SUMX(FILTER(order_items, RELATED(orders[customer_id]) = customers[customer_id] && RELATED(orders[order_status]) IN {"Delivered", "Shipped"}), order_items[line_revenue])
+		dataType: double
+		formatString: ₹#,0
+		lineageTag: 05c6399b-0024-541d-aea5-018004bba2ba
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Order Date' = MAXX(FILTER(orders, orders[customer_id] = customers[customer_id] && orders[order_status] <> "Cancelled"), orders[order_date])
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 592eb604-390c-5294-869b-032828328429
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Days Since Last Order' = IF(NOT ISBLANK(customers[Last Order Date]), DATEDIFF(customers[Last Order Date], MAX(orders[order_date]), DAY))
+		dataType: int64
+		lineageTag: 8c796f4a-aa95-5098-9369-fae266cf8d18
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Type' = SWITCH(TRUE(), customers[Order Count] = 0, "No Purchase", customers[Order Count] = 1, "One-time", "Repeat")
+		dataType: string
+		lineageTag: 8a881303-aecc-5277-8b0d-3df75ef39d3b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment = SWITCH(TRUE(), customers[Order Count] = 0, "Never Purchased", customers[Order Count] >= 3 && customers[Days Since Last Order] <= 90, "Champions", customers[Order Count] >= 3, "Loyal", customers[Order Count] = 2 && customers[Days Since Last Order] <= 120, "Promising", customers[Days Since Last Order] <= 60, "New", customers[Days Since Last Order] > 270, "Lost", "At Risk")
+		dataType: string
+		lineageTag: 27c31e37-61f9-55ae-9d99-7a245bd50fd6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customers = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "customers.csv"), [Delimiter = ",", Columns = 8, Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {{"customer_id", type text}, {"gender", type text}, {"age_group", type text}, {"city", type text}, {"state", type text}, {"region", type text}, {"signup_date", type date}, {"acquisition_channel", type text}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

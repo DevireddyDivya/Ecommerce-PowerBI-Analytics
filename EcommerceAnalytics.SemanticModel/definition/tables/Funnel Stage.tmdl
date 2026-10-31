@@ -1,0 +1,25 @@
+table 'Funnel Stage'
+	lineageTag: 353056b6-1230-5c2f-80d0-83581ebe95bf
+
+	column Stage
+		dataType: string
+		lineageTag: 35e8ef2a-8713-5db4-8612-ad55fc1dee82
+		summarizeBy: none
+		sourceColumn: [Stage]
+		isNameInferred
+		sortByColumn: Step
+
+		annotation SummarizationSetBy = Automatic
+
+	column Step
+		dataType: int64
+		lineageTag: 68b9e968-e258-5365-b426-c6c2059b045e
+		summarizeBy: none
+		sourceColumn: [Step]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Funnel Stage' = calculated
+		mode: import
+		source = DATATABLE("Stage", STRING, "Step", INTEGER, {{"Sessions", 1}, {"Product View", 2}, {"Add to Cart", 3}, {"Checkout", 4}, {"Purchase", 5}})

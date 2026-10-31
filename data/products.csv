@@ -1,0 +1,125 @@
+product_id,product_name,category,subcategory,brand,unit_price,unit_cost
+P0001,Samsung Mobiles A41,Electronics,Mobiles,Samsung,12119,10524.21
+P0002,Samsung Mobiles B96,Electronics,Mobiles,Samsung,16259,14123.37
+P0003,Samsung Mobiles C85,Electronics,Mobiles,Samsung,35399,31074.04
+P0004,Samsung Mobiles D37,Electronics,Mobiles,Samsung,23609,21308.77
+P0005,Redmi Mobiles A35,Electronics,Mobiles,Redmi,26699,24101.89
+P0006,Redmi Mobiles B63,Electronics,Mobiles,Redmi,34489,30017.03
+P0007,OnePlus Mobiles A10,Electronics,Mobiles,OnePlus,24619,21926.83
+P0008,OnePlus Mobiles B64,Electronics,Mobiles,OnePlus,36079,32338.92
+P0009,Realme Mobiles A53,Electronics,Mobiles,Realme,18279,16335.3
+P0010,Realme Mobiles B55,Electronics,Mobiles,Realme,11779,10433.41
+P0011,Realme Mobiles C15,Electronics,Mobiles,Realme,39359,34439.96
+P0012,boAt Audio A58,Electronics,Audio,boAt,5999,5387.15
+P0013,boAt Audio B90,Electronics,Audio,boAt,1769,1574.28
+P0014,boAt Audio C83,Electronics,Audio,boAt,7769,6701.84
+P0015,boAt Audio D94,Electronics,Audio,boAt,3029,2728.1
+P0016,JBL Audio A39,Electronics,Audio,JBL,9479,8120.75
+P0017,JBL Audio B68,Electronics,Audio,JBL,10519,9317.25
+P0018,Sony Audio A55,Electronics,Audio,Sony,10159,9104.42
+P0019,Sony Audio B97,Electronics,Audio,Sony,3229,2877.64
+P0020,Sony Audio C31,Electronics,Audio,Sony,8089,7075.95
+P0021,Sony Audio D69,Electronics,Audio,Sony,6829,6093.17
+P0022,Noise Audio A98,Electronics,Audio,Noise,3899,3351.51
+P0023,Noise Audio B17,Electronics,Audio,Noise,7079,6166.79
+P0024,Noise Audio C50,Electronics,Audio,Noise,3439,3103.56
+P0025,Ambrane Accessories A82,Electronics,Accessories,Ambrane,1019,910.86
+P0026,Ambrane Accessories B93,Electronics,Accessories,Ambrane,2669,2372.46
+P0027,Ambrane Accessories C92,Electronics,Accessories,Ambrane,1649,1420.67
+P0028,Portronics Accessories A81,Electronics,Accessories,Portronics,689,618.24
+P0029,Portronics Accessories B64,Electronics,Accessories,Portronics,1759,1527.06
+P0030,Portronics Accessories C38,Electronics,Accessories,Portronics,2719,2405.85
+P0031,Mi Accessories A16,Electronics,Accessories,Mi,1679,1510.49
+P0032,Mi Accessories B30,Electronics,Accessories,Mi,2619,2348.36
+P0033,Allen Solly Men's Clothing A58,Fashion,Men's Clothing,Allen Solly,1769,1111.93
+P0034,Allen Solly Men's Clothing B42,Fashion,Men's Clothing,Allen Solly,2289,1272.11
+P0035,Allen Solly Men's Clothing C11,Fashion,Men's Clothing,Allen Solly,3409,1653.57
+P0036,Allen Solly Men's Clothing D78,Fashion,Men's Clothing,Allen Solly,2539,1572.61
+P0037,Levi's Men's Clothing A47,Fashion,Men's Clothing,Levi's,2809,1625.76
+P0038,Levi's Men's Clothing B43,Fashion,Men's Clothing,Levi's,1799,1004.44
+P0039,Levi's Men's Clothing C74,Fashion,Men's Clothing,Levi's,3419,1719.23
+P0040,Roadster Men's Clothing A91,Fashion,Men's Clothing,Roadster,3109,1822.74
+P0041,Roadster Men's Clothing B57,Fashion,Men's Clothing,Roadster,2019,1219.87
+P0042,Biba Women's Clothing A77,Fashion,Women's Clothing,Biba,2699,1349.09
+P0043,Biba Women's Clothing B72,Fashion,Women's Clothing,Biba,4179,2224.02
+P0044,W Women's Clothing A49,Fashion,Women's Clothing,W,1039,597.08
+P0045,W Women's Clothing B82,Fashion,Women's Clothing,W,1529,912.27
+P0046,Libas Women's Clothing A18,Fashion,Women's Clothing,Libas,929,513.29
+P0047,Libas Women's Clothing B26,Fashion,Women's Clothing,Libas,4409,2398.99
+P0048,Zara Women's Clothing A31,Fashion,Women's Clothing,Zara,3169,1488.06
+P0049,Zara Women's Clothing B64,Fashion,Women's Clothing,Zara,1629,786.75
+P0050,Bata Footwear A98,Fashion,Footwear,Bata,6089,3069.17
+P0051,Bata Footwear B95,Fashion,Footwear,Bata,1869,1091.29
+P0052,Puma Footwear A67,Fashion,Footwear,Puma,2869,1371.58
+P0053,Puma Footwear B53,Fashion,Footwear,Puma,1399,838.78
+P0054,Puma Footwear C85,Fashion,Footwear,Puma,819,442.5
+P0055,Puma Footwear D90,Fashion,Footwear,Puma,1979,1241.27
+P0056,Campus Footwear A52,Fashion,Footwear,Campus,2029,967.88
+P0057,Campus Footwear B95,Fashion,Footwear,Campus,1109,662.25
+P0058,Nike Footwear A83,Fashion,Footwear,Nike,1939,1194.78
+P0059,Nike Footwear B70,Fashion,Footwear,Nike,4039,2408.3
+P0060,Nike Footwear C22,Fashion,Footwear,Nike,5379,3258.2
+P0061,Prestige Kitchen Appliances A69,Home & Kitchen,Kitchen Appliances,Prestige,4389,3112.55
+P0062,Prestige Kitchen Appliances B93,Home & Kitchen,Kitchen Appliances,Prestige,7899,5951.89
+P0063,Prestige Kitchen Appliances C61,Home & Kitchen,Kitchen Appliances,Prestige,8869,6635.7
+P0064,Prestige Kitchen Appliances D23,Home & Kitchen,Kitchen Appliances,Prestige,6799,4514.05
+P0065,Philips Kitchen Appliances A27,Home & Kitchen,Kitchen Appliances,Philips,2449,1703.64
+P0066,Philips Kitchen Appliances B41,Home & Kitchen,Kitchen Appliances,Philips,4319,3138.08
+P0067,Bajaj Kitchen Appliances A80,Home & Kitchen,Kitchen Appliances,Bajaj,4489,2947.65
+P0068,Bajaj Kitchen Appliances B79,Home & Kitchen,Kitchen Appliances,Bajaj,1689,1151.46
+P0069,HomeTown Home Decor A40,Home & Kitchen,Home Decor,HomeTown,4859,3152.69
+P0070,HomeTown Home Decor B37,Home & Kitchen,Home Decor,HomeTown,1169,820.31
+P0071,Urban Ladder Home Decor A10,Home & Kitchen,Home Decor,Urban Ladder,4549,3367.37
+P0072,Urban Ladder Home Decor B68,Home & Kitchen,Home Decor,Urban Ladder,4929,3589.18
+P0073,Urban Ladder Home Decor C81,Home & Kitchen,Home Decor,Urban Ladder,1709,1155.98
+P0074,Hawkins Cookware A47,Home & Kitchen,Cookware,Hawkins,2599,1926.96
+P0075,Hawkins Cookware B79,Home & Kitchen,Cookware,Hawkins,999,752.23
+P0076,Hawkins Cookware C16,Home & Kitchen,Cookware,Hawkins,499,360.46
+P0077,Hawkins Cookware D77,Home & Kitchen,Cookware,Hawkins,2169,1517.56
+P0078,Pigeon Cookware A33,Home & Kitchen,Cookware,Pigeon,479,334.85
+P0079,Pigeon Cookware B40,Home & Kitchen,Cookware,Pigeon,519,390.21
+P0080,Milton Cookware A41,Home & Kitchen,Cookware,Milton,679,443.5
+P0081,Milton Cookware B20,Home & Kitchen,Cookware,Milton,2149,1622.99
+P0082,Milton Cookware C76,Home & Kitchen,Cookware,Milton,1639,1130.84
+P0083,Mamaearth Skincare A50,Beauty,Skincare,Mamaearth,1419,793.43
+P0084,Mamaearth Skincare B95,Beauty,Skincare,Mamaearth,509,265.11
+P0085,Mamaearth Skincare C19,Beauty,Skincare,Mamaearth,1039,528.39
+P0086,Nivea Skincare A22,Beauty,Skincare,Nivea,799,319.85
+P0087,Nivea Skincare B43,Beauty,Skincare,Nivea,299,166.65
+P0088,Minimalist Skincare A41,Beauty,Skincare,Minimalist,1409,597.17
+P0089,Minimalist Skincare B79,Beauty,Skincare,Minimalist,679,385.98
+P0090,Lakme Makeup A93,Beauty,Makeup,Lakme,719,289.92
+P0091,Lakme Makeup B80,Beauty,Makeup,Lakme,1069,498.61
+P0092,Lakme Makeup C27,Beauty,Makeup,Lakme,709,331.33
+P0093,Lakme Makeup D80,Beauty,Makeup,Lakme,659,278.14
+P0094,Maybelline Makeup A53,Beauty,Makeup,Maybelline,669,320.47
+P0095,Maybelline Makeup B43,Beauty,Makeup,Maybelline,569,269.22
+P0096,Sugar Makeup A16,Beauty,Makeup,Sugar,1009,422.7
+P0097,Sugar Makeup B45,Beauty,Makeup,Sugar,389,200.45
+P0098,Sugar Makeup C26,Beauty,Makeup,Sugar,319,170.12
+P0099,Sugar Makeup D66,Beauty,Makeup,Sugar,1239,678.49
+P0100,Penguin Fiction A24,Books,Fiction,Penguin,549,408.41
+P0101,Penguin Fiction B29,Books,Fiction,Penguin,239,170.09
+P0102,Penguin Fiction C84,Books,Fiction,Penguin,469,336.06
+P0103,Penguin Fiction D15,Books,Fiction,Penguin,479,362.61
+P0104,HarperCollins Fiction A15,Books,Fiction,HarperCollins,379,267.84
+P0105,HarperCollins Fiction B41,Books,Fiction,HarperCollins,649,505.57
+P0106,HarperCollins Fiction C81,Books,Fiction,HarperCollins,529,404.49
+P0107,Arihant Exam Prep A40,Books,Exam Prep,Arihant,979,709.83
+P0108,Arihant Exam Prep B32,Books,Exam Prep,Arihant,899,631.44
+P0109,Arihant Exam Prep C52,Books,Exam Prep,Arihant,919,732.92
+P0110,McGraw Hill Exam Prep A41,Books,Exam Prep,McGraw Hill,859,612.98
+P0111,McGraw Hill Exam Prep B23,Books,Exam Prep,McGraw Hill,489,352.7
+P0112,McGraw Hill Exam Prep C70,Books,Exam Prep,McGraw Hill,569,453.0
+P0113,Decathlon Fitness A54,Sports,Fitness,Decathlon,1839,1087.62
+P0114,Decathlon Fitness B39,Sports,Fitness,Decathlon,2649,1612.32
+P0115,Boldfit Fitness A52,Sports,Fitness,Boldfit,479,331.93
+P0116,Boldfit Fitness B45,Sports,Fitness,Boldfit,2449,1739.48
+P0117,Cockatoo Fitness A78,Sports,Fitness,Cockatoo,5239,3478.93
+P0118,Cockatoo Fitness B43,Sports,Fitness,Cockatoo,2849,2040.27
+P0119,Cockatoo Fitness C43,Sports,Fitness,Cockatoo,1669,976.77
+P0120,Wildcraft Outdoor A50,Sports,Outdoor,Wildcraft,1099,724.42
+P0121,Wildcraft Outdoor B24,Sports,Outdoor,Wildcraft,2899,1687.82
+P0122,Quechua Outdoor A15,Sports,Outdoor,Quechua,5449,3778.28
+P0123,Quechua Outdoor B78,Sports,Outdoor,Quechua,4399,3166.24
+P0124,Quechua Outdoor C95,Sports,Outdoor,Quechua,4279,2517.61

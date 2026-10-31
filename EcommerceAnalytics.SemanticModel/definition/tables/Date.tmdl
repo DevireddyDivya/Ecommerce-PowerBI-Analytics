@@ -1,0 +1,94 @@
+table Date
+	dataCategory: Time
+	lineageTag: 55d92832-46e3-5d6f-bb30-e57ccad9344d
+
+	column Date
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		isKey
+		lineageTag: 90474b9e-6e97-5d0a-83ca-66136d895531
+		summarizeBy: none
+		sourceColumn: [Date]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		lineageTag: ba8bf02e-c1bb-5605-83a4-ca5eea810f24
+		summarizeBy: none
+		sourceColumn: [Year]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		dataType: int64
+		lineageTag: 3d44a059-caf2-56f9-8690-f9c1da0c4f83
+		summarizeBy: none
+		sourceColumn: [Month Number]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: 11b9aca5-4f3d-55ae-996b-06b4f83781a1
+		summarizeBy: none
+		sourceColumn: [Month]
+		isNameInferred
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Month'
+		dataType: string
+		lineageTag: f20ea998-db33-5c66-bccf-c4a6f77b1153
+		summarizeBy: none
+		sourceColumn: [Year Month]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: 155f0d14-895b-55fd-9e1e-515b667a30ff
+		summarizeBy: none
+		sourceColumn: [Quarter]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekday
+		dataType: string
+		lineageTag: ba23aa66-21d0-5135-b4b8-613459143369
+		summarizeBy: none
+		sourceColumn: [Weekday]
+		isNameInferred
+		sortByColumn: 'Weekday Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Number'
+		dataType: int64
+		lineageTag: 1f718170-5e71-5243-afd3-cc690d687a27
+		summarizeBy: none
+		sourceColumn: [Weekday Number]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Type'
+		dataType: string
+		lineageTag: 6d313dfc-6690-5b2f-a2ef-b4c3c65b993e
+		summarizeBy: none
+		sourceColumn: [Day Type]
+		isNameInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Date = calculated
+		mode: import
+		source = ADDCOLUMNS(CALENDAR(DATE(2024, 1, 1), DATE(2025, 12, 31)), "Year", YEAR([Date]), "Month Number", MONTH([Date]), "Month", FORMAT([Date], "mmm"), "Year Month", FORMAT([Date], "yyyy-mm"), "Quarter", "Q" & QUARTER([Date]), "Weekday", FORMAT([Date], "ddd"), "Weekday Number", WEEKDAY([Date], 2), "Day Type", IF(WEEKDAY([Date], 2) > 5, "Weekend", "Weekday"))
+
+	annotation PBI_Id = ea4ffc5a-83de-58cd-bc7a-5ea867e872ec
